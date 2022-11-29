@@ -20,36 +20,35 @@ int maximumSum(int arr[], int n, int k)//function to calculate the maximum sum o
 
         // Find minimum element in array for current
         // operation and modify it i.e; arr[j] --> -arr[j]
-        for (int j = 0; j < n; j++) {
-            if (arr[j] < min) {
-                min = arr[j];
-                index = j;
+        for (int j = 0; j < n; j++) { //for every element in the array
+            if (arr[j] < min) { //if an element in index j is smaller than the minimum
+                min = arr[j]; //this element becomes the new minimum
+                index = j; //the index variable receives j
             }
         }
 
-        // this the condition if we find 0 as minimum
-        // element, so it will useless to replace 0 by -(0)
-        // for remaining operations
-        if (min == 0)
+        // if we find 0 as minimum
+        // element,it will be useless to replace 0 by -(0):
+        if (min == 0) //if the minimum is 0, we dont have to replace
             break;
 
         // Modify element of array
-        arr[index] = -arr[index];
+        arr[index] = -arr[index];//the array receives the same element with different signal
     }
 
     // Calculate sum of array
-    int sum = 0;
-    for (int i = 0; i < n; i++)
-        sum += arr[i];
-    return sum;
+    int sum = 0; //create variavle sum
+    for (int i = 0; i < n; i++) //for every index in the array
+        sum += arr[i]; //add the element of that index in the sum
+    return sum; //return the sum of all elements
 }
 
 // Driver code
 int main()
 {
-    int arr[] = { -2, 0, 5, -1, 2 };
-    int k = 4;
-    int n = sizeof(arr) / sizeof(arr[0]);
-    cout << maximumSum(arr, n, k);
+    int arr[] = { -2, 0, 5, -1, 2 }; //create an array
+    int k = 4; //create k number of operations
+    int n = sizeof(arr) / sizeof(arr[0]); //calculate the size of the array
+    cout << maximumSum(arr, n, k); //call the function maximumSum and print it
     return 0;
 }
