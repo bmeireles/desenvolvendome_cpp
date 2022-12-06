@@ -34,7 +34,6 @@ bool comp(string a, string b) //function to compare strings, returns a boolean v
 		return true;
 	return false;
 
-
 	// Comparing the days
 	string day_a = a.substr(0, 2); //day_a is going to be a substring, extracted from a, starting
 	//at position 0 with 2 values
@@ -53,9 +52,34 @@ void printDates(string dates[], int n)
 	}
 }
 
+string searchList(string array[], int numElems, string value) { //function to to through the array
+//and find the closest value. Receives as parameters an array, the number of elements in the array,
+//and the value we want to look for in the array
+    int diff = abs(stoi(array[0]) - stoi(value)); //the difference value starts with the first value of
+	//the array minus the value we want to find. The smaller the difference, the closest they are.
+	int idx = 0; //variable to save the index of the value in the array
+    for (int i = 0; i < numElems; i++) { //for every value in the array
+        if (abs(stoi(array[i]) - stoi(value)) < diff) { //if the difference between the the element in the list 
+		//and the value is smaller than the current difference
+            diff = abs(stoi(array[i]) - stoi(value)); //save that value as the new difference
+            idx = i; //save the index of the element in the array
+        }
+    }
+    return array[idx]; //return the closest element
+}
+
 // Function to print the next closest date
 string nextClosestDate(string arr[], string q, int n) //n is the size of the array
 {
+	//Compare years: find the closest year in the array
+	//Go through the array again with the closest year
+	// - If there is more than one value for the same year, compare month between these elements
+	// - - Find the closest value for the month between the selected elements based on years
+	// - - - If there is only one value, return this element as the closest
+	// - - - If there is more than one element, compare day between these elements
+	// - If there is only one value, return this element
+
+	/*
 	// Perform the Binary search to answer the queries
 	int l = 0, r = n - 1; //variables for the left and right indexes
 	int ind = -1; //variable for the final index that will be returned as the result. Starts
@@ -67,16 +91,16 @@ string nextClosestDate(string arr[], string q, int n) //n is the size of the arr
 		int m = (l + r) / 2;
 		
 		// Comparator function call
-		int c = comp(q, arr[m]);
+		int c = comp(q, arr[m]); //comp returns true or false
 		
 		// If comp function returns 0, next closest date is found
-		if (c == 0) {
+		if (c == 0) { //modify to: if c == true, date is the same
 			ind = m;
 			break;
 		}
 		
 		// If comp function returns less than 0, search in the left half
-		else if (c < 0) {
+		else if (c < 0) { //modify to: if c == false, compare year
 			r = m - 1;
 			ind = m;
 		}
@@ -94,6 +118,8 @@ string nextClosestDate(string arr[], string q, int n) //n is the size of the arr
 	else {
 		return arr[ind]; //return the nearest date
 	}
+
+	*/
 }
 
 void performQueries(string arr[], string Q[], int k, int n) { //k is the size of Q[]
@@ -127,4 +153,10 @@ int main()
 	printDates(dates, n);
 
 	performQueries(dates, Q, k, n);
+
+	//There is a mistake in the binary search, because the comp function retuns a boolean value,
+	//not an integer. So I have to find another way to search in the array (maybe linear search).
+
+	//I could also change the comp function to return an integer instead of a boolean value, but
+	//I have to check if the sort function accepts. (cant do that)
 }
