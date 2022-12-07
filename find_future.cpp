@@ -52,6 +52,7 @@ void printDates(string dates[], int n)
 	}
 }
 
+/*
 string searchList(string array[], int numElems, string value) { //function to to through the array
 //and find the closest value. Receives as parameters an array, the number of elements in the array,
 //and the value we want to look for in the array
@@ -68,6 +69,8 @@ string searchList(string array[], int numElems, string value) { //function to to
     }
     return array[idx]; //return the closest element
 }
+*/
+
 
 // Function to print the next closest date
 string nextClosestDate(string arr[], string q, int n) //n is the size of the array
@@ -83,8 +86,13 @@ string nextClosestDate(string arr[], string q, int n) //n is the size of the arr
 	//Compare years: find the closest year in the array
 	int diff = abs(stoi(arr[0].substr(6,4)) - stoi(q.substr(6,4))); //the difference value starts with the first value of
 	//the array minus the value we want to find. The smaller the difference, the closest they are.
+	cout << "Substring of the year from array: " << stoi(arr[0].substr(6,4))<< endl;
+	cout << "Substring of the year from q: " << stoi(q.substr(6,4))<< endl;
+	cout << "Substring of the difference: " << diff << endl;
+
+
 	int idx = 0; //variable to save the index of the value in the array
-	int i = 0;
+	int i = 0; //first i
     for (int i; i < n; i++) { //for every value in the array
         if (abs(stoi(arr[i].substr(6,4)) - stoi(q.substr(6,4))) < diff) { //if the difference between the the element in the list 
 		//and the value is smaller than the current difference
@@ -93,19 +101,23 @@ string nextClosestDate(string arr[], string q, int n) //n is the size of the arr
         }
     }
     //arr[idx]; // the closest element according to the year
-	string closest_year = arr[idx].substr(6,4) //the closest year
+	string closest_year = arr[idx].substr(6,4); //the closest year
+	cout << "Closest year: " << closest_year << endl;
 
 	//Go through the array again with the closest year
 	string years_arr[n];
-	int i = 0;
+	i = 0; //second i
 	for (int i; i < n; i++) {
 		if (arr[i].substr(6,4) == closest_year) {
 			years_arr[i] = arr[i];
 		}
+		cout << "years_array in index " << i << " is:"<< years_arr[i] << endl;
 	}
 
 	// - If there is only one value, return this element
 	int size_years = sizeof(years_arr)/sizeof(years_arr[0]);
+	cout << "Size of the years_arr: " << size_years << endl;
+
 	if (size_years == 1) { //if there is only one element, this is the closest of all
 		return years_arr[0]; //return the closest date
 	}
@@ -113,7 +125,7 @@ string nextClosestDate(string arr[], string q, int n) //n is the size of the arr
 		int diff_month = abs(stoi(years_arr[0].substr(3,2)) - stoi(q.substr(3,2))); //the difference value starts with the first value of
 		//the array minus the value we want to find. The smaller the difference, the closest they are.
 		int idx_month = 0; //variable to save the index of the value in the array
-		int i = 0;
+		i = 0; //third i
    		for (int i; i < size_years; i++) { //for every value in the array
        		if (abs(stoi(years_arr[i].substr(3,2)) - stoi(q.substr(3,2))) < diff_month) { //if the difference between the the element in the list 
 			//and the value is smaller than the current difference
@@ -123,11 +135,11 @@ string nextClosestDate(string arr[], string q, int n) //n is the size of the arr
     	}
 
 		//years_arr[idx_month]; // the closest element according to the year and month
-		string closest_month = years_arr[idx_month].substr(3,2) //the closest month
+		string closest_month = years_arr[idx_month].substr(3,2); //the closest month
 
 		//Go through the array again with the closest month
 		string months_arr[n];
-		int i = 0;
+		i = 0; //fourth i
 		for (int i; i < n; i++) {
 			if (years_arr[i].substr(3,2) == closest_month) {
 				months_arr[i] = years_arr[i];
@@ -138,11 +150,12 @@ string nextClosestDate(string arr[], string q, int n) //n is the size of the arr
 		int size_months = sizeof(months_arr)/sizeof(months_arr[0]);
 		if (size_months == 1) { //if there is only one element, this is the closest of all
 			return months_arr[0]; //return the closest date
+		}
 		else {//If there is more than one value for the same year, compare month between these elements
 			int diff_day = abs(stoi(months_arr[0].substr(0,2)) - stoi(q.substr(0,2))); //the difference value starts with the first value of
 			//the array minus the value we want to find. The smaller the difference, the closest they are.
 			int idx_day = 0; //variable to save the index of the value in the array
-			int i = 0;
+			i = 0; //fifth i
    			for (int i; i < size_months; i++) { //for every value in the array
        			if (abs(stoi(months_arr[i].substr(0,2)) - stoi(q.substr(0,2))) < diff_day) { //if the difference between the the element in the list 
 				//and the value is smaller than the current difference
@@ -202,12 +215,17 @@ string nextClosestDate(string arr[], string q, int n) //n is the size of the arr
 void performQueries(string arr[], string Q[], int k, int n) { //k is the size of Q[]
 	for (int i = 0; i < k; i++) {
 		string result = nextClosestDate(arr, Q[i],n);
+		cout << "The closest date found for the query "<< Q[i]<< " is: " << result << endl;
+
+		/*
 		if (result == "-1") {
 			cout << "No closest date found for: " << result << endl;
 		}
 		else {
 			cout << "The closest date found for the query "<< Q[i]<< " is: " << result << endl;
 		}
+		*/
+
 		//cout << dates[i] << endl;
 	}
 }
