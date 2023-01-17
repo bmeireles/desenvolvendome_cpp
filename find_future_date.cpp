@@ -8,16 +8,24 @@
 
 using namespace std;
 
-vector<string> tokenize(string s, string del)
+vector<string> tokenize(string s, string del) //function to separate a string s by the delimiter del. Receives
+//as inputs the string s and the delimiter. Returns a vector with all the new strings.
 {
-	vector<string> res;
-	int start, end = -1 * del.size();
-	do {
-		start = end + del.size();
-		end = s.find(del, start);
-		res.push_back(s.substr(start, end - start));
-	} while (end != -1);
-	return res;
+	vector<string> res; //create a vector of strings to save the result
+	int start, end = -1 * del.size(); //declares variables for the start and the end of the string. End is initialized
+	//with 
+	do { //starts a do-while loop, which will continue to execute the code inside the loop until the condition 
+	//in the while is false
+		start = end + del.size(); //start variable receives the value of end plus the size of the delimiter
+		end = s.find(del, start); //uses the find method to locate the position of the delimiter in the input 
+		//string, starting from the index start. The value of "end" is set to the index of the first occurrence
+		// of the delimiter in the input string.
+		res.push_back(s.substr(start, end - start)); //uses the substring method to extract the substrings from
+		//the input string, between the delimiter position. The method push_back is used to add the substrings
+		//to the vector res.
+	} while (end != -1); //the loop will continue as long as the value of end is not -1, which means the delimiter
+	//was found in the input string
+	return res; //return the vector with the substrings
 }
 
 // Comparator function to compare
@@ -115,10 +123,11 @@ string nextClosestDate(vector<string> arr, string q)
 void performQueries(vector<string> arr, vector<string> Q)
 {
 	// Traverse the queries of date
-	for (int i = 0; i < Q.size(); i++) {
+	for (int i = 0; i < Q.size(); i++) { //for every querie in Q
 
 		// Function Call
-		cout << nextClosestDate(arr, Q[i]) << endl;
+		cout << nextClosestDate(arr, Q[i]) << endl; //call the function to find the closest date of Q[i] in the array
+		//arr[]
 	}
 }
 
@@ -127,14 +136,14 @@ int main()
 {
 	// Given array of dates
 	vector<string> arr = { "22/4/1233", "1/3/633",
-						"23/5/56645", "4/12/233" };
+						"23/5/56645", "4/12/233" }; //declare a vector of strings with the dates
 
 	// Given Queries
 	vector<string> Q
-		= { "23/3/4345", "4/4/34234234", "12/3/2" };
+		= { "23/3/4345", "4/4/34234234", "12/3/2" }; //vector of strings with queries
 
 	// Function Call
-	performQueries(arr, Q);
+	performQueries(arr, Q); //call the function with the parameters
 }
 
 
