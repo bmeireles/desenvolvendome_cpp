@@ -28,47 +28,50 @@ vector<string> tokenize(string s, string del) //function to separate a string s 
 	return res; //return the vector with the substrings
 }
 
-// Comparator function to compare
-// the two dates
-int comp(string s, string t)
+// Comparator function to compare the two dates
+int comp(string s, string t) //function to compare 2 dates, receives as parameters a string with a date s
+//and another string t with a date. Returns 0 if the dates are the same, and if they are different,
+//returns the difference in years, months or days.
 {
 
-	// Split the dates strings
-	// when a "/" found
-	vector<string> ss = tokenize(s, "/");
-	vector<string> tt = tokenize(t, "/");
+	// Split the dates strings when a "/" found
+	vector<string> ss = tokenize(s, "/"); //ss is a vector of substrings from s, which were separated by /
+	vector<string> tt = tokenize(t, "/"); //tt is a vector of substrings from t, which were separated by /
 
-	int date1[3];
-	int date2[3];
+	int date1[3]; //declare a list to save the date 1
+	int date2[3]; //declare a list to save the date 2
+	//index 0: day
+	//index 1: month
+	//index 2: year
 
-	// Store the dates in form
-	// of arrays
-	for (int i = 0; i < 3; i++) {
-		date1[i] = stoi(ss[i]);
-		date2[i] = stoi(tt[i]);
+	// Store the dates in form of arrays
+	for (int i = 0; i < 3; i++) { //for every index in the arrays of dates
+		date1[i] = stoi(ss[i]); //the index i in date1 receives the value from ss, transforming
+		// the string to a integer
+		date2[i] = stoi(tt[i]); //the index i in date2 receives the value from tt, transforming
+		// the string to a integer
 	}
 
 	// If years are not same
-	if (date1[2] != date2[2]) {
-		return date1[2] - date2[2];
+	if (date1[2] != date2[2]) { //if year in date1 is different from year in date2
+		return date1[2] - date2[2]; //return the difference between the 2 years
 	}
 
 	// If months are not same
-	else if (date1[1] != date2[1]) {
-		return date1[1] - date2[1];
+	else if (date1[1] != date2[1]) { //if month in date1 is different from month in date2
+		return date1[1] - date2[1]; //return the difference between the 2 months
 	}
 
 	// If days are not same
-	else if (date1[0] != date2[0]) {
-		return date1[0] - date2[0];
+	else if (date1[0] != date2[0]) { //if day in date1 is differennt from day in date2
+		return date1[0] - date2[0]; //return the difference between the 2 days
 	}
 
-	// If two date is same
-	return 0;
+	// If the two dates are the same, return 0
+	return 0; 
 }
 
-// Function to print the next
-// closest date
+// Function to print the next closest date
 string nextClosestDate(vector<string> arr, string q)
 {
 	// Sort date array
