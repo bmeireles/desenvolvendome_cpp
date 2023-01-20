@@ -72,54 +72,47 @@ int comp(string s, string t) //function to compare 2 dates, receives as paramete
 }
 
 // Function to print the next closest date
-string nextClosestDate(vector<string> arr, string q)
+string nextClosestDate(vector<string> arr, string q) //function to print the next closest date using a binary
+//search. Receives as parameters a vector of strings (with dates) and a string (a specifi date). Returns a
+//string with the next closest date.
 {
 	// Sort date array
-	sort(arr.begin(), arr.end(), comp);
+	sort(arr.begin(), arr.end(), comp); //uses the sort function to sort the array according to the comp function
 
-	// Perform the Binary search
-	// to answer the queries
-	int l = 0, r = arr.size() - 1;
-	int ind = -1;
+	// Perform the Binary search to answer the queries
+	int l = 0, r = arr.size() - 1; //initializes 2 variables left and right, to be used in the binary search
+	//left is the fist index and right starts with the last index in the array
+	int ind = -1; //this variable stores the index of the next closext date. Starts with -1
 
-	// Iterate until l <= r
-	while (l <= r) {
+	while (l <= r) { // Iterate until l <= r
 
-		// Find mid m
-		int m = (l + r) / 2;
+		int m = (l + r) / 2; //calculates the middle index 
 
 		// Comparator function call
-		int c = comp(q, arr[m]);
+		int c = comp(q, arr[m]); //the variable c receives the result of the comparator function between the
+		//the date q and the date in the middle index
 
-		// If comp function return 0
-		// next closest date is found
-		if (c == 0) {
-			ind = m;
+		if (c == 0) { // If comp function return 0 next closest date is found
+			ind = m; //store the index of the closest date in ind
 			break;
 		}
 
-		// If comp function return
-		// less than 0, search in
-		// the left half
-		else if (c < 0) {
-			r = m - 1;
-			ind = m;
+		else if (c < 0) { // If comp function return less than 0, search in the left half
+			r = m - 1; //the right index becomes the middle minus 1
+			ind = m; //store the index of the middle in ind
 		}
 
-		// If comp function return
-		// greater than 0, search
-		// in the right half
-		else {
-			l = m + 1;
+		else { // If comp function return greater than 0, search in the right half
+			l = m + 1; //the left index becomes the middle plus 1, to search the right half of the array
 		}
 	}
 
 	// Return the result
-	if (ind == -1) {
+	if (ind == -1) { //if the value in ind is -1, it means that the closest date was not found
 		return "-1";
 	}
-	else {
-		return arr[ind];
+	else { //if there is a value different from -1, it means it was found
+		return arr[ind]; //return the date in the index ind
 	}
 }
 
